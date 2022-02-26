@@ -1,0 +1,13 @@
+C:\Users\19409\source\repos\OperateInts\OperateInts\bin\Debug\netcoreapp3.1\OperateInts.exe
+C:\Users\19409\source\repos\OperateInts\OperateInts\bin\Debug\netcoreapp3.1\OperateInts.deps.json
+C:\Users\19409\source\repos\OperateInts\OperateInts\bin\Debug\netcoreapp3.1\OperateInts.runtimeconfig.json
+C:\Users\19409\source\repos\OperateInts\OperateInts\bin\Debug\netcoreapp3.1\OperateInts.runtimeconfig.dev.json
+C:\Users\19409\source\repos\OperateInts\OperateInts\bin\Debug\netcoreapp3.1\OperateInts.dll
+C:\Users\19409\source\repos\OperateInts\OperateInts\bin\Debug\netcoreapp3.1\OperateInts.pdb
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.csprojAssemblyReference.cache
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.AssemblyInfoInputs.cache
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.AssemblyInfo.cs
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.csproj.CoreCompileInputs.cache
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.dll
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.pdb
+C:\Users\19409\source\repos\OperateInts\OperateInts\obj\Debug\netcoreapp3.1\OperateInts.genruntimeconfig.cache

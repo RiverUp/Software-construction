@@ -1,0 +1,13 @@
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\bin\Debug\netcoreapp3.1\ToeplitzMatrix.exe
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\bin\Debug\netcoreapp3.1\ToeplitzMatrix.deps.json
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\bin\Debug\netcoreapp3.1\ToeplitzMatrix.runtimeconfig.json
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\bin\Debug\netcoreapp3.1\ToeplitzMatrix.runtimeconfig.dev.json
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\bin\Debug\netcoreapp3.1\ToeplitzMatrix.dll
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\bin\Debug\netcoreapp3.1\ToeplitzMatrix.pdb
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.csprojAssemblyReference.cache
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.AssemblyInfoInputs.cache
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.AssemblyInfo.cs
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.csproj.CoreCompileInputs.cache
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.dll
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.pdb
+C:\Users\19409\source\repos\ToeplitzMatrix\ToeplitzMatrix\obj\Debug\netcoreapp3.1\ToeplitzMatrix.genruntimeconfig.cache
