@@ -7,11 +7,13 @@ using System.Xml.Serialization;
 
 namespace ConsoleApp1
 {
-    class ExceptionofDetails : Exception
+     class ExceptionofDetails : Exception
     {
         string s;
+        int code;
         public ExceptionofDetails(int a)
         {
+            code = a;
             switch (a)
             {
                 case 0:s="there is already a completelt same order detail.";break;
@@ -28,8 +30,10 @@ namespace ConsoleApp1
     class ExceptionofOrder : Exception
     {
         string s;
+        int code;
         public ExceptionofOrder(int a)
         {
+            code = a;
             switch (a)
             {
                 case 0:s = "there is already a completelt same order ."; break;
@@ -42,12 +46,16 @@ namespace ConsoleApp1
             return s;
         }
     }
-    [Serializable]
-    class Client
+    public class Client
     {
         string name;
         string adderss;
-        public string Name { get => name; }
+        public string Name { get => name; set => name = value; }
+        public string Address { set => adderss = value; }
+        public Client()
+        {
+
+        }
         public Client(string n, string a)
         {
             name = n;
@@ -58,13 +66,16 @@ namespace ConsoleApp1
             return $"client name : {name}; client address : {adderss}";
         }
     }
-    [Serializable]
-    class Goods
+    public class Goods
     {
         string name;
         int price;
-        public int Price { get => price; }
-        public string Name { get => name; }
+        public int Price { get => price; set => price = value; }
+        public string Name { get => name; set => name = value; }
+        public Goods()
+        {
+
+        }
         public Goods(string name, int price)
         {
             this.name = name;
@@ -76,15 +87,19 @@ namespace ConsoleApp1
         }
     }
     [Serializable]
-    class Order_Details
+    public class OrderDetails
     {
         int OrdDetnum;//明细编号
         Goods goods;
         int itemNums;//商品数量
         public int ItemNums { get => itemNums; set => itemNums = value; }
-        public int OrdDetNum { get => OrdDetnum; }
-        public Goods G { get => goods; set => goods = value; }
-        public Order_Details(Goods go, int i_ns)
+        public int OrdDetNum { get => OrdDetnum; set => OrdDetnum = value; }
+        public Goods Goods { get => goods; set => goods = value; }
+        public OrderDetails()
+        {
+
+        }
+        public OrderDetails(Goods go, int i_ns)
         {
             DateTime d = DateTime.Now;
             OrdDetnum = Math.Abs(d.GetHashCode());
@@ -93,37 +108,43 @@ namespace ConsoleApp1
         }
         public override bool Equals(object obj)
         {
-            Order_Details oD = obj as Order_Details;
+            OrderDetails oD = obj as OrderDetails;
             if (this.OrdDetnum != oD.OrdDetnum)
                 return false;
             return this.goods.Name == oD.goods.Name && this.ItemNums == oD.ItemNums;
         }
         public override string ToString()
         {
-            return $"Order Detail No : {OrdDetNum} " + G.ToString() + $" Quantity : {ItemNums}";
+            return $"Order Detail No : {OrdDetNum} " + Goods.ToString() + $" Quantity : {ItemNums}";
         }
     }
     [Serializable]
-    class Order : IComparable
+    public class Order : IComparable
     {
         int Ordnum;//订单编号
         Client cli;
         int money;
-        List<Order_Details> list;
-        public int OrdNum { get => Ordnum; }
-        public int Money { get => money; }
-        public List<Order_Details> List { get => list; }
-        public Client Cli { get => cli; }
+        List<OrderDetails> list;
+        public int OrdNum { get => Ordnum; set => Ordnum = value; }
+        public int Money { get => money; set => money = value; }
+        public List<OrderDetails> List { get => list; set => list = value; }
+        public Client Cli { get => cli; set => cli = value; }
+        public Order()
+        {
+
+        }
         public Order(Client c)
         {
-            list = new List<Order_Details>();
+            if (c == null) return;
+            list = new List<OrderDetails>();
             DateTime d = DateTime.Now;
             Ordnum = Math.Abs(d.GetHashCode());
             cli = c;
         }
-        public void addOrdDet(Order_Details oD)
+        public void addOrdDet(OrderDetails oD)
         {
-            foreach (Order_Details orddet in list)
+            if (oD == null) return;
+            foreach (OrderDetails orddet in list)
             {
                 if (oD.Equals(orddet))
                 {
@@ -140,46 +161,51 @@ namespace ConsoleApp1
         public int calMoney()
         {
             money = 0;
-            foreach (Order_Details oD in list)
+            foreach (OrderDetails oD in list)
             {
-                money += oD.ItemNums * oD.G.Price;
+                money += oD.ItemNums * oD.Goods.Price;
             }
             return money;
         }
         public int CompareTo(Object o)
         {
-
+            if (o == null) return 0;
             Order order = o as Order;
             return this.Ordnum.CompareTo(order.Ordnum);
         }
         public override bool Equals(object obj)
         {
+            if (obj == null) return false;
             Order order = obj as Order;
             return this.Ordnum.Equals(order.Ordnum);
         }
         public override string ToString()
         {
             StringBuilder s = new StringBuilder();
-            foreach(Order_Details oD in list)
+            foreach(OrderDetails oD in list)
             {
                 s.Append(oD.ToString()+"\n");
             }
             return $"Order No : {Ordnum} Client : " + cli.ToString() + "\n" + s + $"Money : {calMoney()}";
         }
     }
-        class OrderService
+    public class OrderService
         {
             List<Order> orders;
             List<Goods> goods;
-        public List<Goods> Goods { get => goods; }
+        
+        public List<Goods> Goods { get => goods; }     
+        [XmlElement]
         public List<Order> Orders { get => orders; }
         public OrderService(List<Goods> g)
         {
+            if (g == null) return;
             orders = new List<Order>();
             goods = g;
         }
             public void AddOrder(Order order)
             {
+            if (order == null) return;
                 foreach(Order o in orders)
                 {
                     if (order.Equals(o))
@@ -214,7 +240,7 @@ namespace ConsoleApp1
 
                 }
             }
-            public List<Order> CheckOrder(int a,string s)
+            public List<Order> CheckOrder(int a,string s)//a查找类型，s查找变量值
             {
                 switch (a)
                 {
@@ -224,7 +250,7 @@ namespace ConsoleApp1
                                     select order;return q1.ToList();//订单号
                         
                     case 2:var q2 = from order in orders
-                                   where order.List.Any(oD=>oD.G.Name==s)
+                                   where order.List.Any(oD=>oD.Goods.Name==s)
                                    select order;return q2.ToList();//商品名称
                     case 3: var q3 = from order in orders
                                     where order.Cli.Name == s
@@ -239,7 +265,7 @@ namespace ConsoleApp1
                 }
                
             }
-            public void CorrectOrder(int a,int b,string type,string value)//按照订单号搜索待修改订单
+            public void CorrectOrder(int a,int b,string type,string value)//a，订单号，b订单明细号，type，更改什么数据，value更改的值
             {
                 var q = from order in orders
                         where order.OrdNum == a
@@ -256,7 +282,7 @@ namespace ConsoleApp1
             {
                 throw new ExceptionofDetails(3);
             }
-                Order_Details oD1 = q2.ToList<Order_Details>()[0];
+                OrderDetails oD1 = q2.ToList<OrderDetails>()[0];
             switch (type)
             {
                 case "num":oD1.ItemNums = Int32.Parse(value);
@@ -269,7 +295,7 @@ namespace ConsoleApp1
                     {
                         throw new ExceptionofDetails(1);
                     }
-                    oD1.G = g.ToList<Goods>()[0];break;
+                    oD1.Goods = g.ToList<Goods>()[0];break;
             }
             }
         public void Export()
@@ -277,7 +303,7 @@ namespace ConsoleApp1
             XmlSerializer xml = new XmlSerializer(typeof(List<Order>));
             using (FileStream fs=new FileStream("orders.xml", FileMode.Create))
             {
-                xml.Serialize(fs, orders);
+                xml.Serialize(fs, Orders);
             }
         }
         public List<Order> Import()
@@ -285,6 +311,7 @@ namespace ConsoleApp1
             XmlSerializer xml = new XmlSerializer(typeof(List<Order>));
             using (FileStream fs = new FileStream("orders.xml", FileMode.Open))
             {
+
                 List<Order> orders1 = (List<Order>)xml.Deserialize(fs); 
                 return orders1;
             }
@@ -330,7 +357,7 @@ namespace ConsoleApp1
                         {
                             Console.WriteLine("请输入你想要的数量");
                             int n = Int32.Parse(Console.ReadLine());
-                            Order_Details det = new Order_Details(service.Goods[choose2 - 1], n);
+                            OrderDetails det = new OrderDetails(service.Goods[choose2 - 1], n);
                             try {order.addOrdDet(det); }
                             catch(ExceptionofDetails e)
                             {
