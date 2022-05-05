@@ -14,13 +14,11 @@ namespace crawlWinform
 {
     public partial class Form1 : Form
     {
-        BindingSource myBindingSource =new BindingSource();
         simpleCrawler myCrawler = new simpleCrawler();
         Thread myThread=null;
         public Form1()
         {
             InitializeComponent();
-            dataGridView1.DataSource = myBindingSource;
             myCrawler.PageDownloaded += Crawler_PageDownloaded;
             myCrawler.CrawlerStopped += Crawler_CrawlerStopped;
         }
@@ -42,7 +40,7 @@ namespace crawlWinform
         private void Crawler_PageDownloaded(simpleCrawler crawler, int index, string url, string info)
         {
             var pageInfo = new { Index = index, URL = url, Status = info };
-            Action action = () => myBindingSource.Add(pageInfo);
+            Action action = () => { richTextBox1.Text += url +"  "+ info + "\n"; };
             if (this.InvokeRequired)
             {
                 this.Invoke(action);
@@ -51,7 +49,6 @@ namespace crawlWinform
             {
                 action();
             }
-
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -61,7 +58,6 @@ namespace crawlWinform
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            myBindingSource.Clear();
             myCrawler.StartUrl = textBox1.Text;
             if(myThread != null) {
                 myThread.Abort();

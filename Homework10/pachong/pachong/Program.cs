@@ -31,13 +31,14 @@ namespace SimpleCrawler
             urls.Clear();
             queue = new ConcurrentQueue<string>();
             queue.Enqueue(StartUrl);
+            int completeCount=0;
             List<Task> tasks = new List<Task>();
-            PageDownloaded +=(crawler,index,url,info)=> { count++; };
+            PageDownloaded +=(crawler,index,url,info)=> { completeCount++; };
             while (tasks.Count<10)
             {
                 if (!queue.TryDequeue(out string url))
                 {
-                    if (count < tasks.Count)
+                    if (completeCount < tasks.Count)
                     {
                         Thread.Sleep(100);
                         continue;
@@ -47,34 +48,35 @@ namespace SimpleCrawler
                         break;
                     }
                 }
-                    Task task =Task.Run(() =>DownloadAndParse(url));
+                   int index =tasks.Count;
+                    Task task =Task.Run(() =>DownloadAndParse(url,index));
                     tasks.Add(task);
                 
             }
             Task.WaitAll(tasks.ToArray());
             CrawlerStopped(this);
         }
-        private void DownloadAndParse(string url)
+        private void DownloadAndParse(string url,int index)
         {
             try
             {
-                string html =DownLoad(url);;
+                string html =DownLoad(url,index);;
                 urls[url] = true;
                 Parse(html,url);
-                PageDownloaded(this,count,url,"success");
+                PageDownloaded(this,index,url,"success");
             }
             catch (Exception e)
             {
-                PageDownloaded(this,count,url,"Error:"+e.Message);
+                PageDownloaded(this,index,url,"Error:"+e.Message);
             }
         }
-        private string DownLoad(string url)
+        private string DownLoad(string url,int index)
         {
                 WebClient webClient = new WebClient();
                 webClient.Encoding = Encoding.UTF8;
                 string html = webClient.DownloadString(url);
                 string fileName = count.ToString();
-                File.WriteAllText(fileName, html, Encoding.UTF8);
+                File.WriteAllText(index+".html", html, Encoding.UTF8);
                 return html;
         }
 
