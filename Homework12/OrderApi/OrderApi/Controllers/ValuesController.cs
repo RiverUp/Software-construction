@@ -103,7 +103,7 @@ namespace OrderApi.Controllers
             }
             try
             {
-                _orderContext.Entry(order).State = (System.Data.Entity.EntityState)EntityState.Modified;
+                _orderContext.Entry(order).State = EntityState.Modified;
                 _orderContext.SaveChanges();
             }
             catch (Exception e)

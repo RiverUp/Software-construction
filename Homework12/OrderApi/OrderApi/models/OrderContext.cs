@@ -1,19 +1,19 @@
-﻿using MySql.Data.EntityFramework;
+﻿
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace OrderApi.models
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class OrderContext : DbContext
     {
-        public OrderContext() : base("OrderDataBase")
+        public OrderContext(DbContextOptions<OrderContext> options)
+           : base(options)
         {
-            Database.SetInitializer(
-            new DropCreateDatabaseIfModelChanges<OrderContext>());
+            this.Database.EnsureCreated(); //自动建库建表
+
         }
         public  DbSet<Order> Orders { get; set; }
         public  DbSet<OrderDetail> Details { get; set; }

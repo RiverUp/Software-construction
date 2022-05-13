@@ -37,8 +37,7 @@ namespace OrderApi
             services.AddDbContextPool<OrderContext>(options=> options
                 // 连接字符串"todoDatabase" 可以在appsetting.json中设置
                 .UseMySql(Configuration.GetConnectionString("orderDataBase"),
-                    mySqlOptions => mySqlOptions
-                    .ServerVersion(new Version(5, 7, 30), ServerType.MySql)
+                  MySqlServerVersion.LatestSupportedServerVersion
             ));
             services.AddControllers();
         }
