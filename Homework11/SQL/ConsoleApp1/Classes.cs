@@ -17,6 +17,7 @@ namespace SQL
         {
             Name = name; Price = price; 
         }
+        public Goods() { }
 
     }
     public class OrderDetail
@@ -34,16 +35,18 @@ namespace SQL
             this.item = go;
             this.itemNums = itemNum;
         }
+        public OrderDetail() { }
     }
     public class Order
     {
         public int OrderId { get; set; }
         public int Money { get; set; }
         public List<OrderDetail> Details { get; set; }
-        public Order()
+        public Order(int orderId)
         {      
-            OrderId = 123;
+            OrderId = orderId;
         }
+        public Order() { }
     }
 }
 

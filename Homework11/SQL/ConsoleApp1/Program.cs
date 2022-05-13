@@ -12,10 +12,11 @@ namespace SQL
         {
             Goods noodles = new Goods("面条", 12);
             Goods rice = new Goods("米饭", 2);
+            int orderId;
             //新建订单
             using (var context = new OrderContext())
             {
-                var order = new Order();
+                var order = new Order(123);
                 order.Details = new List<OrderDetail>() {
                     new OrderDetail(noodles,1,1234) ,
                     new OrderDetail(rice,2,2345)
@@ -29,11 +30,13 @@ namespace SQL
                 order.Money = money;
                 context.Orders.Add(order);
                 context.SaveChanges();
+                orderId = order.OrderId;
             }
+            
             //添加订单明细
             using (var context = new OrderContext())
             {
-                var detail = new OrderDetail(noodles, 3, 3456) { OrderId = 123 };
+                var detail = new OrderDetail(noodles, 3, 3456) { OrderId = orderId };
                 context.Entry(detail).State = System.Data.Entity.EntityState.Added;
                 context.SaveChanges();
             }
